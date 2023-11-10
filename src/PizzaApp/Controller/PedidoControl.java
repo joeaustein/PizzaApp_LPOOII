@@ -192,9 +192,9 @@ public class PedidoControl {
     }
     // ------------------------------------------------------ //
     // Atualizar status:
-    public boolean atualizarStatus(Pedido pedido, int status) {
+    public boolean atualizarStatus(int nrPedido, int status) {
         try {
-            new Pedido().atualizarStatus(pedido, status);
+            new Pedido().atualizarStatus(nrPedido, status);
         } catch (SQLException e) {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
@@ -225,4 +225,19 @@ public class PedidoControl {
                     }
                 } 
     }   
+    // ------------------------------------------------------ //
+    // Listar pedidos:
+    public ArrayList<Pedido> listarPedidos() {
+        ArrayList<Pedido> pedidos = null;
+        try {
+            pedidos = new Pedido().listarPedidos();
+        } catch (SQLException e) {
+                String msgErro = e.getMessage();
+                System.out.println(msgErro);
+                // Função para apresentar erro na View:
+                new TelaCadastrarCliente().apresentarMsg(msgErro);
+        }
+        return pedidos;
+    }
+    // ------------------------------------------------------ //
 }

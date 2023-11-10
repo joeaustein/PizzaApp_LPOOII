@@ -143,7 +143,7 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_AtualizarValoresBG = new javax.swing.JPanel();
         jLabel_IconEsq2 = new javax.swing.JLabel();
         jLabel_Title = new javax.swing.JLabel();
         jLabel_IconDir = new javax.swing.JLabel();
@@ -170,9 +170,9 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 49, 49));
-        jPanel1.setMaximumSize(new java.awt.Dimension(800, 600));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
+        jPanel_AtualizarValoresBG.setBackground(new java.awt.Color(255, 49, 49));
+        jPanel_AtualizarValoresBG.setMaximumSize(new java.awt.Dimension(800, 600));
+        jPanel_AtualizarValoresBG.setMinimumSize(new java.awt.Dimension(800, 600));
 
         jLabel_IconEsq2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Imagens/MiniLogoESQ.png"))); // NOI18N
 
@@ -299,11 +299,11 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout jPanel_AtualizarValoresBGLayout = new javax.swing.GroupLayout(jPanel_AtualizarValoresBG);
+        jPanel_AtualizarValoresBG.setLayout(jPanel_AtualizarValoresBGLayout);
+        jPanel_AtualizarValoresBGLayout.setHorizontalGroup(
+            jPanel_AtualizarValoresBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_AtualizarValoresBGLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel_IconEsq2)
                 .addGap(18, 18, 18)
@@ -311,30 +311,30 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel_IconDir)
                 .addGap(171, 171, 171))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel_AtualizarValoresBGLayout.createSequentialGroup()
+                .addGroup(jPanel_AtualizarValoresBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel_AtualizarValoresBGLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(jButton_Atualizar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jButton_Voltar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel_AtualizarValoresBGLayout.createSequentialGroup()
                         .addGap(162, 162, 162)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(161, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel_AtualizarValoresBGLayout.setVerticalGroup(
+            jPanel_AtualizarValoresBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_AtualizarValoresBGLayout.createSequentialGroup()
                 .addGap(63, 63, 63)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_AtualizarValoresBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_IconEsq2)
                     .addComponent(jLabel_IconDir)
                     .addComponent(jLabel_Title, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addGap(65, 65, 65)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel_AtualizarValoresBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButton_Voltar)
                     .addComponent(jButton_Atualizar))
                 .addContainerGap(213, Short.MAX_VALUE))
@@ -344,11 +344,11 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_AtualizarValoresBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_AtualizarValoresBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -394,8 +394,8 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_ValorEspecial;
     private javax.swing.JLabel jLabel_ValorPremium;
     private javax.swing.JLabel jLabel_ValorSimples;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel_AtualizarValoresBG;
     private javax.swing.JTextField jTextField_ValorEspecial;
     private javax.swing.JTextField jTextField_ValorPremium;
     private javax.swing.JTextField jTextField_ValorSimples;

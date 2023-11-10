@@ -11,6 +11,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+
 /**
  *
  * @author joeau
@@ -44,6 +46,10 @@ public class PedidoDAO {
     private final String sqlExcluir =
         "delete from pedido    " +
         "where nrpedido = ?   ";   
+    
+    private final String sqlListar = 
+        "select * from pedido    " +
+        "where status <> 0        ";
     
     // ------------------Métodos:------------------ //
     public Pedido gerarPedido(Cliente cliente) throws SQLException {
@@ -255,6 +261,53 @@ public class PedidoDAO {
             }
         } 
         return pedido;
+    }
+    // ---------------------------------------------- //
+    public ArrayList<Pedido> listar() throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        ArrayList<Pedido> pedidos = null;
+        int nrPedido;
+        String telCliente;
+        int status;
+        
+        try {
+            // Configura conexão:
+            conn = new ConnectionFactory().getConnection();
+            // Recebe um PreparedStatement:
+            pstmt = conn.prepareStatement(sqlListar);
+            // ResultSet:
+            ResultSet rs = pstmt.executeQuery(sqlListar);
+            // Recuperação dos dados:
+            if(rs != null){
+                pedidos = new ArrayList<Pedido>();
+                while(rs.next()) {
+                    nrPedido = rs.getInt("nrpedido");
+                    telCliente = rs.getString("telcliente");   
+                    status = rs.getInt("status");
+                    // Cria Obj:
+                    Pedido pedido = new Pedido(nrPedido, telCliente, status);         
+                    // Adiciona na lista:
+                    pedidos.add(pedido);
+                }  
+            }            
+        } catch (SQLException e) {
+            throw new SQLException ("Erro ao listar pedidos: " + e);
+        } finally {
+            // Finaliza statement e conexão:
+            try {
+                if(pstmt != null) {pstmt.close();}
+            } catch (SQLException e) {
+                throw new SQLException ("Erro ao fechar statement: " + e);
+            }
+            try {
+                if(conn != null) {conn.close();}
+            } catch (SQLException e) {
+                throw new SQLException ("Erro ao fechar conexao: " + e);
+            }
+        } 
+        return pedidos;
     }
     // ---------------------------------------------- //
 }

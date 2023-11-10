@@ -197,7 +197,7 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel_CadastrarSaborBG = new javax.swing.JPanel();
         jLabel_IconEsq2 = new javax.swing.JLabel();
         jLabel_Title = new javax.swing.JLabel();
         jLabel_IconDir = new javax.swing.JLabel();
@@ -215,14 +215,16 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar Sabor");
         setMinimumSize(new java.awt.Dimension(800, 600));
+        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 49, 49));
-        jPanel1.setMaximumSize(new java.awt.Dimension(800, 600));
-        jPanel1.setMinimumSize(new java.awt.Dimension(800, 600));
-        jPanel1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jPanel_CadastrarSaborBG.setBackground(new java.awt.Color(255, 49, 49));
+        jPanel_CadastrarSaborBG.setMaximumSize(new java.awt.Dimension(800, 600));
+        jPanel_CadastrarSaborBG.setMinimumSize(new java.awt.Dimension(800, 600));
+        jPanel_CadastrarSaborBG.setPreferredSize(new java.awt.Dimension(800, 600));
+        jPanel_CadastrarSaborBG.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel1MouseClicked(evt);
+                jPanel_CadastrarSaborBGMouseClicked(evt);
             }
         });
 
@@ -349,31 +351,31 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+        javax.swing.GroupLayout jPanel_CadastrarSaborBGLayout = new javax.swing.GroupLayout(jPanel_CadastrarSaborBG);
+        jPanel_CadastrarSaborBG.setLayout(jPanel_CadastrarSaborBGLayout);
+        jPanel_CadastrarSaborBGLayout.setHorizontalGroup(
+            jPanel_CadastrarSaborBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_CadastrarSaborBGLayout.createSequentialGroup()
+                .addGroup(jPanel_CadastrarSaborBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jButton_Voltar)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel_CadastrarSaborBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel_CadastrarSaborBGLayout.createSequentialGroup()
                             .addGap(182, 182, 182)
                             .addComponent(jLabel_IconEsq2)
                             .addGap(18, 18, 18)
                             .addComponent(jLabel_Title)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addComponent(jLabel_IconDir))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGroup(jPanel_CadastrarSaborBGLayout.createSequentialGroup()
                             .addGap(137, 137, 137)
                             .addComponent(jPanel_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(145, Short.MAX_VALUE))
+                .addContainerGap(120, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        jPanel_CadastrarSaborBGLayout.setVerticalGroup(
+            jPanel_CadastrarSaborBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel_CadastrarSaborBGLayout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jPanel_CadastrarSaborBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel_IconEsq2)
                     .addComponent(jLabel_IconDir)
                     .addComponent(jLabel_Title))
@@ -381,18 +383,18 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
                 .addComponent(jPanel_Cadastro, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton_Voltar)
-                .addContainerGap(123, Short.MAX_VALUE))
+                .addContainerGap(118, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_CadastrarSaborBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jPanel_CadastrarSaborBG, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -439,11 +441,11 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
         desabilitaBotao_Excluir();
     }//GEN-LAST:event_jPanel_CadastroMouseClicked
 
-    private void jPanel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel1MouseClicked
+    private void jPanel_CadastrarSaborBGMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel_CadastrarSaborBGMouseClicked
         // Quando clica fora da tabela, deve sair do modo seleção para edição/exclusão:
         jTable_Sabores.clearSelection();
         desabilitaBotao_Excluir();
-    }//GEN-LAST:event_jPanel1MouseClicked
+    }//GEN-LAST:event_jPanel_CadastrarSaborBGMouseClicked
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton_Cadastrar;
@@ -455,7 +457,7 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel_NomeSabor;
     private javax.swing.JLabel jLabel_Tipo;
     private javax.swing.JLabel jLabel_Title;
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel_CadastrarSaborBG;
     private javax.swing.JPanel jPanel_Cadastro;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable_Sabores;

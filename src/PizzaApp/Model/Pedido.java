@@ -192,10 +192,10 @@ public class Pedido {
         this.setValorTotal(soma);
     }
     // Atualizar status:
-    public void atualizarStatus(Pedido pedido, int status) throws SQLException {
+    public void atualizarStatus(int nrPedido, int status) throws SQLException {
         System.out.println("Obj Pedido - Iniciando atualizarStatus..."); 
         try {
-            new PedidoDAO().atualizarStatus(pedido.getNrPedido(), status);
+            new PedidoDAO().atualizarStatus(nrPedido, status);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -238,6 +238,17 @@ public class Pedido {
             throw new SQLException(e);
         }
         return pedido;
+    }
+    // Listar pedidos:
+    public ArrayList<Pedido> listarPedidos() throws SQLException {
+        System.out.println("Obj Pedido - Iniciando listarPedidos..."); 
+        ArrayList<Pedido> pedidos = null;
+        try {
+            pedidos = new PedidoDAO().listar();
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }  
+        return pedidos;
     }
     // ---------------------------------------------- //
 }

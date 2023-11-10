@@ -1148,7 +1148,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
 
     private void jButton_FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FinalizarPedidoActionPerformed
         // TODO add your handling code here:
-        if(new PedidoControl().atualizarStatus(pedidoEmAberto, 1)) {
+        if(new PedidoControl().atualizarStatus(pedidoEmAberto.getNrPedido(), 1)) {
             apresentarMsg("Pedido realizado!");
             carregaTelaPedidos();
         } else {

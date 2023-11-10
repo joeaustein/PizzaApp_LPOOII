@@ -4,8 +4,6 @@
  */
 package PizzaApp.DAO;
 
-import PizzaApp.Model.Cliente;
-import PizzaApp.Model.Sabor;
 import PizzaApp.Model.TipoSabor;
 import java.sql.SQLException;
 import java.sql.Connection;

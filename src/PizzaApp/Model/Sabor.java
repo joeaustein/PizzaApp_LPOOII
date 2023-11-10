@@ -73,5 +73,23 @@ public class Sabor {
         }
         return sabor;
     }
+    // Cadastrar:
+    public void cadastrarSabor(int idTipo, String nomeSabor) throws SQLException {
+        System.out.println("Obj Sabor - Iniciando cadastrarSabor..."); 
+        try {
+            new SaborDAO().cadastrarSabor(idTipo, nomeSabor);
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+    }
+    // Excluir:
+    public void excluirSabor(int idSabor) throws SQLException {
+        System.out.println("Obj Sabor - Iniciando excluirSabor..."); 
+        try {
+            new SaborDAO().excluir(idSabor);
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+    }
     // ---------------------------------------------- //
 }

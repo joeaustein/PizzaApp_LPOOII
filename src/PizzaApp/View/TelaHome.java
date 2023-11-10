@@ -54,14 +54,15 @@ public class TelaHome extends javax.swing.JFrame {
 
         jLabel_ImagemBG = new javax.swing.JLabel();
         jMenuBar1_Home = new javax.swing.JMenuBar();
-        jMenu_Home_Pedido = new javax.swing.JMenu();
-        jMenuItem_RealizarPedido = new javax.swing.JMenuItem();
-        jMenuItem_VisualizarPedido = new javax.swing.JMenuItem();
+        jMenu_Home_Programa = new javax.swing.JMenu();
+        jMenuItem_Sair = new javax.swing.JMenuItem();
         jMenu_Home_Cadastro = new javax.swing.JMenu();
         jMenuItem_CadastrarCliente = new javax.swing.JMenuItem();
         jMenuItem_CadastrarSabor = new javax.swing.JMenuItem();
         jMenuItem_AtualizarValores = new javax.swing.JMenuItem();
-        jMenu_Home_Sair = new javax.swing.JMenu();
+        jMenu_Home_Pedido = new javax.swing.JMenu();
+        jMenuItem_RealizarPedido = new javax.swing.JMenuItem();
+        jMenuItem_VisualizarPedido = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Home");
@@ -80,26 +81,21 @@ public class TelaHome extends javax.swing.JFrame {
         jMenuBar1_Home.setToolTipText("");
         jMenuBar1_Home.setName(""); // NOI18N
 
-        jMenu_Home_Pedido.setForeground(new java.awt.Color(22, 23, 23));
-        jMenu_Home_Pedido.setText("Pedido");
-        jMenu_Home_Pedido.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+        jMenu_Home_Programa.setForeground(new java.awt.Color(22, 23, 23));
+        jMenu_Home_Programa.setText("Programa");
+        jMenu_Home_Programa.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
 
-        jMenuItem_RealizarPedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jMenuItem_RealizarPedido.setForeground(new java.awt.Color(22, 23, 23));
-        jMenuItem_RealizarPedido.setText("Realizar Pedido");
-        jMenuItem_RealizarPedido.addActionListener(new java.awt.event.ActionListener() {
+        jMenuItem_Sair.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jMenuItem_Sair.setForeground(new java.awt.Color(22, 23, 23));
+        jMenuItem_Sair.setText("Sair");
+        jMenuItem_Sair.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem_RealizarPedidoActionPerformed(evt);
+                jMenuItem_SairActionPerformed(evt);
             }
         });
-        jMenu_Home_Pedido.add(jMenuItem_RealizarPedido);
+        jMenu_Home_Programa.add(jMenuItem_Sair);
 
-        jMenuItem_VisualizarPedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
-        jMenuItem_VisualizarPedido.setForeground(new java.awt.Color(22, 23, 23));
-        jMenuItem_VisualizarPedido.setText("Visualizar Pedido");
-        jMenu_Home_Pedido.add(jMenuItem_VisualizarPedido);
-
-        jMenuBar1_Home.add(jMenu_Home_Pedido);
+        jMenuBar1_Home.add(jMenu_Home_Programa);
 
         jMenu_Home_Cadastro.setForeground(new java.awt.Color(22, 23, 23));
         jMenu_Home_Cadastro.setText("Cadastro");
@@ -137,10 +133,26 @@ public class TelaHome extends javax.swing.JFrame {
 
         jMenuBar1_Home.add(jMenu_Home_Cadastro);
 
-        jMenu_Home_Sair.setForeground(new java.awt.Color(22, 23, 23));
-        jMenu_Home_Sair.setText("Sair");
-        jMenu_Home_Sair.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
-        jMenuBar1_Home.add(jMenu_Home_Sair);
+        jMenu_Home_Pedido.setForeground(new java.awt.Color(22, 23, 23));
+        jMenu_Home_Pedido.setText("Pedido");
+        jMenu_Home_Pedido.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
+
+        jMenuItem_RealizarPedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jMenuItem_RealizarPedido.setForeground(new java.awt.Color(22, 23, 23));
+        jMenuItem_RealizarPedido.setText("Realizar Pedido");
+        jMenuItem_RealizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem_RealizarPedidoActionPerformed(evt);
+            }
+        });
+        jMenu_Home_Pedido.add(jMenuItem_RealizarPedido);
+
+        jMenuItem_VisualizarPedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jMenuItem_VisualizarPedido.setForeground(new java.awt.Color(22, 23, 23));
+        jMenuItem_VisualizarPedido.setText("Visualizar Pedido");
+        jMenu_Home_Pedido.add(jMenuItem_VisualizarPedido);
+
+        jMenuBar1_Home.add(jMenu_Home_Pedido);
 
         setJMenuBar(jMenuBar1_Home);
 
@@ -174,6 +186,11 @@ public class TelaHome extends javax.swing.JFrame {
     private void jMenuItem_CadastrarSaborActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_CadastrarSaborActionPerformed
         abrirTela_CadastrarSabor(evt);
     }//GEN-LAST:event_jMenuItem_CadastrarSaborActionPerformed
+
+    private void jMenuItem_SairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem_SairActionPerformed
+        this.dispose();
+        System.exit(0);
+    }//GEN-LAST:event_jMenuItem_SairActionPerformed
 
     /**
      * @param args the command line arguments
@@ -218,9 +235,10 @@ public class TelaHome extends javax.swing.JFrame {
     private javax.swing.JMenuItem jMenuItem_CadastrarCliente;
     private javax.swing.JMenuItem jMenuItem_CadastrarSabor;
     private javax.swing.JMenuItem jMenuItem_RealizarPedido;
+    private javax.swing.JMenuItem jMenuItem_Sair;
     private javax.swing.JMenuItem jMenuItem_VisualizarPedido;
     private javax.swing.JMenu jMenu_Home_Cadastro;
     private javax.swing.JMenu jMenu_Home_Pedido;
-    private javax.swing.JMenu jMenu_Home_Sair;
+    private javax.swing.JMenu jMenu_Home_Programa;
     // End of variables declaration//GEN-END:variables
 }

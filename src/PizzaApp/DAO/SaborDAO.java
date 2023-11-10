@@ -31,6 +31,10 @@ public class SaborDAO {
         "    (idtipo, nomesabor)    " +    
         "values (?, ?)                      ";
     
+    private final String sqlExcluir =
+        "delete from sabor    " +
+        "where idsabor = ?    ";   
+    
     // ------------------Métodos:------------------ //
     public ArrayList<Sabor> listar() throws SQLException {
         Connection conn = null;
@@ -150,5 +154,35 @@ public class SaborDAO {
             }
         }     
     }      
+    // ---------------------------------------------- //
+        public void excluir(int idSabor) throws SQLException {
+        Connection conn = null;
+        PreparedStatement pstmt = null;
+        
+        try {
+            // Configura conexão:
+            conn = new ConnectionFactory().getConnection();
+            // Recebe um PreparedStatement:
+            pstmt = conn.prepareStatement(sqlExcluir);
+            // Prepara o SQL:
+            pstmt.setInt(1, idSabor);
+            // Executa:
+            pstmt.execute();            
+        } catch (SQLException e) {
+            throw new SQLException ("Erro ao excluir sabor: " + e);
+        } finally {
+            // Finaliza statement e conexão:
+            try {
+                if(pstmt != null) {pstmt.close();}
+            } catch (SQLException e) {
+                throw new SQLException ("Erro ao fechar statement: " + e);
+            }
+            try {
+                if(conn != null) {conn.close();}
+            } catch (SQLException e) {
+                throw new SQLException ("Erro ao fechar conexao: " + e);
+            }
+        }     
+    }
     // ---------------------------------------------- //
 }

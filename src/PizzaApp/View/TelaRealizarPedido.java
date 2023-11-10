@@ -20,6 +20,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
 import javax.swing.JComboBox;
@@ -440,6 +441,15 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
             }
         } 
         jTable_Itens.setModel(tableModel);
+        
+        // Isso aqui vai fazer com que a celula da tabela nao seja editavel diretamente:
+        DefaultCellEditor cellEditor = new DefaultCellEditor(new JTextField()) {
+            @Override
+            public boolean isCellEditable(java.util.EventObject e) {
+                return false; // Impede a edição de todas as células
+            }
+        };
+        jTable_Itens.setDefaultEditor(Object.class, cellEditor);    
     }
     // ------------------------------------------------------------- //
     // Métodos ComboBox:

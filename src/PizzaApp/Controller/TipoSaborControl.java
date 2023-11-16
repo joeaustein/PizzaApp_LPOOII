@@ -14,6 +14,9 @@ import java.util.ArrayList;
  * @author joeau
  */
 public class TipoSaborControl {
+    // -----------------------Atributos---------------------- //
+    TelaAtualizarValores viewAttValor = new TelaAtualizarValores();
+    TipoSabor tipoSaborModel = new TipoSabor();
     // ----------------------Métodos----------------------  //
     // Atualizar cliente:
     public void atualizarValor(int idTipo, String valorCm2Str) {
@@ -27,28 +30,28 @@ public class TipoSaborControl {
             if(valorCm2Str != null) {valorCm2 = Double.parseDouble(valorCm2Str);}  
             // Cria Obj e chama função:   
             try {
-                new TipoSabor().atualizarValor(idTipo, valorCm2);
-                new TelaAtualizarValores().apresentarMsg("Valor atualizado com sucesso!");
+                tipoSaborModel.atualizarValor(idTipo, valorCm2);
+                viewAttValor.apresentarMsg("Valor atualizado com sucesso!");
             } catch (SQLException e) {
                 String msgErro = "Erro ao tentar atualizar valor! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaAtualizarValores().apresentarMsg(msgErro);
+                viewAttValor.apresentarMsg(msgErro);
             } 
         } else {
-            new TelaAtualizarValores().apresentarMsg("Dados preenchidos incorretamente!");
+            viewAttValor.apresentarMsg("Dados preenchidos incorretamente!");
         }
     }
     // ------------------------------------------------------ //
     public ArrayList<TipoSabor> listarTipos() {
         ArrayList<TipoSabor> tipos = null;
         try {
-            tipos = new TipoSabor().listarTipos();
+            tipos = tipoSaborModel.listarTipos();
         } catch (SQLException e){
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaAtualizarValores().apresentarMsg(msgErro);
+            viewAttValor.apresentarMsg(msgErro);
         }
         return tipos;
     } 

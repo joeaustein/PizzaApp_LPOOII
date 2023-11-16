@@ -418,9 +418,6 @@
               <Color blue="6b" green="68" red="65" type="rgb"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_FiltroSobrenomeActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField_FiltroNome">
           <Properties>
@@ -431,9 +428,6 @@
               <Color blue="6b" green="68" red="65" type="rgb"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_FiltroNomeActionPerformed"/>
-          </Events>
         </Component>
         <Component class="javax.swing.JTextField" name="jTextField_FiltroTelefone">
           <Properties>
@@ -444,9 +438,6 @@
               <Color blue="6b" green="68" red="65" type="rgb"/>
             </Property>
           </Properties>
-          <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField_FiltroTelefoneActionPerformed"/>
-          </Events>
         </Component>
       </SubComponents>
     </Container>

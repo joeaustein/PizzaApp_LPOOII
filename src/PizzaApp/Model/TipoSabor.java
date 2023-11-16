@@ -18,7 +18,7 @@ public class TipoSabor {
     private int idTipo;
     private String nomeCategoria;
     private double valorCm2; 
-
+    private TipoSaborDAO tipoSaborDAO = new TipoSaborDAO();
     // ------------------Métodos:------------------ //
     // Contructor 01 (utilizado na recuperação também):
     public TipoSabor(int idTipo, String nomeCategoria, double valorCm2){
@@ -48,11 +48,11 @@ public class TipoSabor {
     // ---------------------------------------------- //
     // Demais métodos:
     // Monta tipoSabor recuperado da base: 
-    public TipoSabor montaTipo(int idTipo) throws SQLException {
+    public TipoSabor montarTipo(int idTipo) throws SQLException {
         System.out.println("Obj TipoSabor - Iniciando montaTipo..."); 
         TipoSabor tipo = null;
         try {
-            tipo = new TipoSaborDAO().montarTipoPorID(idTipo);  
+            tipo = tipoSaborDAO.montarTipoPorID(idTipo);  
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -62,7 +62,7 @@ public class TipoSabor {
     public void atualizarValor(int idTipo, double valorCm2) throws SQLException {
         System.out.println("Obj TipoSabor - Iniciando atualizarValor..."); 
         try {
-            new TipoSaborDAO().atualizarValor(idTipo, valorCm2);
+            tipoSaborDAO.atualizarValor(idTipo, valorCm2);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -72,7 +72,7 @@ public class TipoSabor {
         System.out.println("Obj TipoSabor - Iniciando listarTipos..."); 
         ArrayList<TipoSabor> tipos = null;
         try {
-            tipos = new TipoSaborDAO().listar();
+            tipos = tipoSaborDAO.listar();
         } catch (SQLException e) {
             throw new SQLException(e);
         }

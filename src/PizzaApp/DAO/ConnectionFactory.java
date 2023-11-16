@@ -8,10 +8,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.Properties;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 /**
  *
  * @author joeau

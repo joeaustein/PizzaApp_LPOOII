@@ -14,7 +14,6 @@ public abstract class Forma {
     // ------------------Atributos:------------------ //
     private double dimensao;
     private double area;
-    
     // ------------------Métodos:------------------ //
     // Contructor 01:
     protected Forma(){

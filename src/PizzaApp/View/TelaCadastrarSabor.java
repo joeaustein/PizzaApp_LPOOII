@@ -30,6 +30,9 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
     // Variáveis globais:
     private TelaHome home;
     private int idSabor;
+    private Color colorDisab;
+    private Color colorHabil;
+    private SaborControl saborControl;
     // -------------------------------------------------------Contrutores:-------------------------------------------------------- //
     public TelaCadastrarSabor() {
         initComponents();
@@ -39,6 +42,9 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
     public TelaCadastrarSabor(TelaHome home) {
         // Armazenamos a tela anterior para a navegabilidade (opção "voltar"):
         this.home = home;
+        this.colorDisab = new Color(0x65686b);
+        this.colorHabil = new Color(0x161717);
+        this.saborControl = new SaborControl();
         // Inicialização:
         initComponents();
         inicializacaoPersonalizada();
@@ -50,7 +56,7 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
             Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             // index 0 ficara em cinza:      
             if(index == 0) {
-                renderer.setForeground(new Color(0x65686b));
+                renderer.setForeground(colorDisab);
             }
             return this;
         }  
@@ -132,7 +138,7 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
         // Limpa tabela antes de carregar, para não duplicar:
         tableModel.setRowCount(0);
         // Popula tableModel para jTable_Clientes:
-        ArrayList<Sabor> sabores = new SaborControl().listarSabores();
+        ArrayList<Sabor> sabores = saborControl.listarSabores();
         // Tratamento em caso de null:
         if(sabores != null) {
             sabores.forEach((Sabor sabor) -> {
@@ -170,20 +176,20 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
     // Metodos dos botões:
     // Botão Cadastrar:
     public void desabilitaBotao_Cadastrar() {
-        jButton_Cadastrar.setForeground(new Color (0x65686b));
+        jButton_Cadastrar.setForeground(colorDisab);
         jButton_Cadastrar.setEnabled(false);
     }
     public void habilitaBotao_Cadastrar() {
-        jButton_Cadastrar.setForeground(new Color (0x161717));
+        jButton_Cadastrar.setForeground(colorHabil);
         jButton_Cadastrar.setEnabled(true);
     }
     // Botão Excluir:
     public void desabilitaBotao_Excluir() {
-        jButton_Excluir.setForeground(new Color (0x65686b));
+        jButton_Excluir.setForeground(colorDisab);
         jButton_Excluir.setEnabled(false);
     }
     public void habilitaBotao_Excluir() {
-        jButton_Excluir.setForeground(new Color (0x161717));
+        jButton_Excluir.setForeground(colorHabil);
         jButton_Excluir.setEnabled(true);
     }
     // ----------------------------------------------------------------------------------------------------------------------------- //
@@ -215,7 +221,6 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Cadastrar Sabor");
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jPanel_CadastrarSaborBG.setBackground(new java.awt.Color(255, 49, 49));
@@ -288,11 +293,6 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
         jLabel_Tipo.setText("Tipo:");
 
         jComboBox_Tipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox_Tipo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_TipoActionPerformed(evt);
-            }
-        });
 
         jButton_Cadastrar.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
         jButton_Cadastrar.setText("Cadastrar!");
@@ -403,7 +403,7 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
 
     private void jButton_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExcluirActionPerformed
         // Chama a função:
-        new SaborControl().excluirSabor(idSabor);
+        saborControl.excluirSabor(idSabor);
         // Pós operação:
         resetTela();
     }//GEN-LAST:event_jButton_ExcluirActionPerformed
@@ -413,16 +413,12 @@ public class TelaCadastrarSabor extends javax.swing.JFrame {
         this.setVisible(false);
     }//GEN-LAST:event_jButton_VoltarActionPerformed
 
-    private void jComboBox_TipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_TipoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_TipoActionPerformed
-
     private void jButton_CadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CadastrarActionPerformed
         // Recupera dados dos campos e salva nas variáveis:
         String nomeSabor = jTextField_NomeSabor.getText();
         int idTipo = jComboBox_Tipo.getSelectedIndex();
         // Chama função de cadastro:
-        new SaborControl().cadastrarSabor(idTipo, nomeSabor);
+        saborControl.cadastrarSabor(idTipo, nomeSabor);
         // Pós operação:
         resetTela();
     }//GEN-LAST:event_jButton_CadastrarActionPerformed

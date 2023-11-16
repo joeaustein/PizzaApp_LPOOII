@@ -36,6 +36,9 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     private String oldTel;
     private boolean editMode;
     private TelaHome home;
+    private Color colorDisab;
+    private Color colorHabil;
+    private ClienteControl clienteControl;
     // -------------------------------------------------------Contrutores:-------------------------------------------------------- //
     // Contrutor Default:
     public TelaCadastrarCliente() {
@@ -51,6 +54,9 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         this.telefone = "";
         this.oldTel = "";
         this.editMode = false;
+        this.colorDisab = new Color(0x65686b);
+        this.colorHabil = new Color(0x161717);
+        this.clienteControl = new ClienteControl();
         // Inicialização:
         initComponents();
         inicializacaoPersonalizada();
@@ -136,13 +142,15 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         adicionaFLCampoMsg(jTextField_Telefone, "(Apenas numeros)");
         // Validação de preenchimento de campos para ativar/desativar botões:
         // Campos do filtro:
-        jTextField_FiltroNome.getDocument().addDocumentListener(new TextFieldsDLFiltro());
-        jTextField_FiltroSobrenome.getDocument().addDocumentListener(new TextFieldsDLFiltro());
-        jTextField_FiltroTelefone.getDocument().addDocumentListener(new TextFieldsDLFiltro());
+        DocumentListener dlFiltro = new TextFieldsDLFiltro();
+        jTextField_FiltroNome.getDocument().addDocumentListener(dlFiltro);
+        jTextField_FiltroSobrenome.getDocument().addDocumentListener(dlFiltro);
+        jTextField_FiltroTelefone.getDocument().addDocumentListener(dlFiltro);
         // Campos do cadastro:
-        jTextField_Nome.getDocument().addDocumentListener(new TextFieldsDLCadastro());
-        jTextField_Sobrenome.getDocument().addDocumentListener(new TextFieldsDLCadastro());
-        jTextField_Telefone.getDocument().addDocumentListener(new TextFieldsDLCadastro());
+        DocumentListener dlCadastro = new TextFieldsDLCadastro();
+        jTextField_Nome.getDocument().addDocumentListener(dlCadastro);
+        jTextField_Sobrenome.getDocument().addDocumentListener(dlCadastro);
+        jTextField_Telefone.getDocument().addDocumentListener(dlCadastro);
         // Ordenação da tabela por coluna:
         jTable_Clientes.getTableHeader().addMouseListener(new MouseAdapter() {
             @Override
@@ -180,15 +188,15 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         jTextField_Telefone.setText("");
         
         // Campos filtro: (reset de msg e cor):
-        jTextField_FiltroNome.setForeground(new Color(0x65686b));
-        jTextField_FiltroSobrenome.setForeground(new Color(0x65686b));
-        jTextField_FiltroTelefone.setForeground(new Color(0x65686b));    
+        jTextField_FiltroNome.setForeground(colorDisab);
+        jTextField_FiltroSobrenome.setForeground(colorDisab);
+        jTextField_FiltroTelefone.setForeground(colorDisab);    
         jTextField_FiltroNome.setText("Nome");
         jTextField_FiltroSobrenome.setText("Sobrenome");
         jTextField_FiltroTelefone.setText("Telefone");
-        jTextField_Nome.setForeground(new Color(0x65686b));
-        jTextField_Sobrenome.setForeground(new Color(0x65686b));
-        jTextField_Telefone.setForeground(new Color(0x65686b));    
+        jTextField_Nome.setForeground(colorDisab);
+        jTextField_Sobrenome.setForeground(colorDisab);
+        jTextField_Telefone.setForeground(colorDisab);    
         jTextField_Nome.setText("(Apenas letras)");
         jTextField_Sobrenome.setText("(Apenas letras)");
         jTextField_Telefone.setText("(Apenas numeros)");
@@ -199,9 +207,9 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     // ------------------------------------------------------------- //
     // Preenche os campos com os valores dos atributos:
     public void preencherCampos() {
-        jTextField_Nome.setForeground(new Color(0x161717));
-        jTextField_Sobrenome.setForeground(new Color(0x161717));
-        jTextField_Telefone.setForeground(new Color(0x161717));  
+        jTextField_Nome.setForeground(colorHabil);
+        jTextField_Sobrenome.setForeground(colorHabil);
+        jTextField_Telefone.setForeground(colorHabil);  
         jTextField_Nome.setText(nome);
         jTextField_Sobrenome.setText(sobreNome);
         jTextField_Telefone.setText(telefone);
@@ -210,7 +218,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     // Essa função irá adicionar um FocusListener num campo de texto para exibir/esconder a msg instrutiva:
     public void adicionaFLCampoMsg(JTextField textField, String msg) {
         // Iniciando com a mensagem instrutiva em cinza:
-        textField.setForeground(new Color(0x65686b));
+        textField.setForeground(colorDisab);
         textField.setText(msg);
 
         // Adicionando FocusListener: 
@@ -219,14 +227,14 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
             public void focusGained(FocusEvent e) {
                 if (textField.getText().equals(msg)) {
                     textField.setText("");
-                    textField.setForeground(new Color(0x161717));
+                    textField.setForeground(colorHabil);
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
                 if (textField.getText().isEmpty()) {
                     textField.setText(msg);
-                    textField.setForeground(new Color(0x65686b));
+                    textField.setForeground(colorDisab);
                 }
             }     
         });
@@ -235,61 +243,61 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     // Metodos dos botões:
     // Botão Cadastrar:
     public void desabilitaBotao_Cadastrar() {
-        jButton_Cadastrar.setForeground(new Color (0x65686b));
+        jButton_Cadastrar.setForeground(colorDisab);
         jButton_Cadastrar.setEnabled(false);
     }
     public void habilitaBotao_Cadastrar() {
-        jButton_Cadastrar.setForeground(new Color (0x161717));
+        jButton_Cadastrar.setForeground(colorHabil);
         jButton_Cadastrar.setEnabled(true);
     }
     // ------------------------------------------------------------- //
     // Botão Atualizar:
     public void desabilitaBotao_Atualizar() {
-        jButton_Atualizar.setForeground(new Color (0x65686b));
+        jButton_Atualizar.setForeground(colorDisab);
         jButton_Atualizar.setEnabled(false);
     }
     public void habilitaBotao_Atualizar() {
-        jButton_Atualizar.setForeground(new Color (0x161717));
+        jButton_Atualizar.setForeground(colorHabil);
         jButton_Atualizar.setEnabled(true);
     }
     // ------------------------------------------------------------- //
     // Botão Limpar:
     public void desabilitaBotao_Limpar() {
-        jButton_Limpar.setForeground(new Color (0x65686b));
+        jButton_Limpar.setForeground(colorDisab);
         jButton_Limpar.setEnabled(false);
     }
     public void habilitaBotao_Limpar() {
-        jButton_Limpar.setForeground(new Color (0x161717));
+        jButton_Limpar.setForeground(colorHabil);
         jButton_Limpar.setEnabled(true);
     }
     // ------------------------------------------------------------- //
     // Botão Editar:
     public void desabilitaBotao_Editar() {
-        jButton_Editar.setForeground(new Color (0x65686b));
+        jButton_Editar.setForeground(colorDisab);
         jButton_Editar.setEnabled(false);
     }
     public void habilitaBotao_Editar() {
-        jButton_Editar.setForeground(new Color (0x161717));
+        jButton_Editar.setForeground(colorHabil);
         jButton_Editar.setEnabled(true);
     }
     // ------------------------------------------------------------- //
     // Botão Excluir:
     public void desabilitaBotao_Excluir() {
-        jButton_Excluir.setForeground(new Color (0x65686b));
+        jButton_Excluir.setForeground(colorDisab);
         jButton_Excluir.setEnabled(false);
     }
     public void habilitaBotao_Excluir() {
-        jButton_Excluir.setForeground(new Color (0x161717));
+        jButton_Excluir.setForeground(colorHabil);
         jButton_Excluir.setEnabled(true);
     }
     // ------------------------------------------------------------- //
     // Botão Filtrar:
     public void desabilitaBotao_Filtrar() {
-        jButton_Filtrar.setForeground(new Color (0x65686b));
+        jButton_Filtrar.setForeground(colorDisab);
         jButton_Filtrar.setEnabled(false);
     }
     public void habilitaBotao_Filtrar() {
-        jButton_Filtrar.setForeground(new Color (0x161717));
+        jButton_Filtrar.setForeground(colorHabil);
         jButton_Filtrar.setEnabled(true);
     }
     // ------------------------------------------------------------- //    
@@ -298,7 +306,6 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     public void carregaTabela() {
         // Carregamento dados tabela:
         DefaultTableModel tableModel = (DefaultTableModel) jTable_Clientes.getModel();
-        ClienteControl clienteControl = new ClienteControl();
         // Limpa tabela antes de carregar, para não duplicar:
         tableModel.setRowCount(0);
         // Popula tableModel para jTable_Clientes:
@@ -332,7 +339,6 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     public void carregaTabelaComFiltro(String nome, String sobrenome, String telefone) {
         // Carregamento dados tabela:
         DefaultTableModel tableModel = (DefaultTableModel) jTable_Clientes.getModel();
-        ClienteControl clienteControl = new ClienteControl();
         // Limpa tabela antes de carregar, para não duplicar:
         tableModel.setRowCount(0);
         // Popula tableModel para jTable_Clientes:
@@ -548,27 +554,12 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
 
         jTextField_FiltroSobrenome.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jTextField_FiltroSobrenome.setForeground(new java.awt.Color(101, 104, 107));
-        jTextField_FiltroSobrenome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_FiltroSobrenomeActionPerformed(evt);
-            }
-        });
 
         jTextField_FiltroNome.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jTextField_FiltroNome.setForeground(new java.awt.Color(101, 104, 107));
-        jTextField_FiltroNome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_FiltroNomeActionPerformed(evt);
-            }
-        });
 
         jTextField_FiltroTelefone.setFont(new java.awt.Font("Segoe UI", 0, 10)); // NOI18N
         jTextField_FiltroTelefone.setForeground(new java.awt.Color(101, 104, 107));
-        jTextField_FiltroTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_FiltroTelefoneActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel_CadastroClienteBGLayout = new javax.swing.GroupLayout(jPanel_CadastroClienteBG);
         jPanel_CadastroClienteBG.setLayout(jPanel_CadastroClienteBGLayout);
@@ -687,8 +678,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         sobreNome = jTextField_Sobrenome.getText();
         telefone = jTextField_Telefone.getText();
         
-        // Instancia a controladora e chama função de cadastro:
-        ClienteControl clienteControl = new ClienteControl();
+        // Chama função de cadastro:
         clienteControl.cadastrarCliente(nome, sobreNome, telefone);
         // Pós operação:
         resetTela();
@@ -722,8 +712,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         sobreNome = jTextField_Sobrenome.getText();
         telefone = jTextField_Telefone.getText();
         
-        // Instancia a controladora e chama função de cadastro:
-        ClienteControl clienteControl = new ClienteControl();
+        // Chama função de cadastro:
         clienteControl.atualizarCliente(nome, sobreNome, telefone, oldTel);
         // Pós operação:
         resetTela();
@@ -743,8 +732,7 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jPanel_CadastroClienteBGMouseClicked
 
     private void jButton_ExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExcluirActionPerformed
-        // Instancia a controladora e chama função de cadastro:
-        ClienteControl clienteControl = new ClienteControl();
+        // Chama função de cadastro:
         clienteControl.excluirCliente(nome, sobreNome, telefone); 
         // Pós operação:
         resetTela();
@@ -754,18 +742,6 @@ public class TelaCadastrarCliente extends javax.swing.JFrame {
         // Carrega a tabela realizando uma busca com os filtros aplicados:
         carregaTabelaComFiltro(jTextField_FiltroNome.getText(), jTextField_FiltroSobrenome.getText(), jTextField_FiltroTelefone.getText());
     }//GEN-LAST:event_jButton_FiltrarActionPerformed
-
-    private void jTextField_FiltroSobrenomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FiltroSobrenomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FiltroSobrenomeActionPerformed
-
-    private void jTextField_FiltroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FiltroNomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FiltroNomeActionPerformed
-
-    private void jTextField_FiltroTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FiltroTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FiltroTelefoneActionPerformed
 // ----------------------------------------------------------------------------------------------------------------------------- //
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

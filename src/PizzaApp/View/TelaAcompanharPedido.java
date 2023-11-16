@@ -7,7 +7,6 @@ package PizzaApp.View;
 import PizzaApp.Controller.PedidoControl;
 import PizzaApp.Model.Pedido;
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -17,7 +16,6 @@ import javax.swing.DefaultCellEditor;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -30,7 +28,7 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
     private TelaHome home;
     private int nrPedido;
     private int status;
-
+    private PedidoControl pedidoControl;
     // -------------------------------------------------------Contrutores:-------------------------------------------------------- //
     public TelaAcompanharPedido() {
         initComponents();
@@ -40,6 +38,7 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
     public TelaAcompanharPedido(TelaHome home) {
         // Armazenamos a tela anterior para a navegabilidade (opção "voltar"):
         this.home = home;
+        this.pedidoControl = new PedidoControl();
         // Inicialização:
         initComponents();
         inicializacaoPersonalizada();
@@ -57,7 +56,6 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
                 ordenarPorColuna(jTable_Pedidos, colunaClicada);
             }
         });
-        
         // Reset da tela:
         resetTela();  
     }
@@ -78,6 +76,7 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
         jTable_Pedidos.clearSelection();
         nrPedido = 0;
         status = 0;
+        jLabel_NrPedidoResp.setText("");
         atualizarSprite();
     }
     // ------------------------------------------------------------- //   
@@ -114,7 +113,6 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
     public void carregaTabela() {
         // Carregamento dados tabela:
         DefaultTableModel tableModel = (DefaultTableModel) jTable_Pedidos.getModel();
-        PedidoControl pedidoControl = new PedidoControl();
         // Limpa tabela antes de carregar, para não duplicar:
         tableModel.setRowCount(0);
         // Popula tableModel para jTable_Pedidos:
@@ -186,6 +184,8 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
         jTable_Pedidos = new javax.swing.JTable();
         jButton_Voltar = new javax.swing.JButton();
         jButton_AtStatus = new javax.swing.JButton();
+        jLabel_NrPedido = new javax.swing.JLabel();
+        jLabel_NrPedidoResp = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Acompanhar Pedido");
@@ -261,16 +261,29 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
             }
         });
 
+        jLabel_NrPedido.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel_NrPedido.setForeground(new java.awt.Color(22, 23, 23));
+        jLabel_NrPedido.setText("Pedido:");
+
+        jLabel_NrPedidoResp.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        jLabel_NrPedidoResp.setForeground(new java.awt.Color(22, 23, 23));
+        jLabel_NrPedidoResp.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        jLabel_NrPedidoResp.setText("   ");
+
         javax.swing.GroupLayout jPanel_AcompanharPedidoBGLayout = new javax.swing.GroupLayout(jPanel_AcompanharPedidoBG);
         jPanel_AcompanharPedidoBG.setLayout(jPanel_AcompanharPedidoBGLayout);
         jPanel_AcompanharPedidoBGLayout.setHorizontalGroup(
             jPanel_AcompanharPedidoBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel_AcompanharPedidoBGLayout.createSequentialGroup()
                 .addGap(147, 147, 147)
-                .addGroup(jPanel_AcompanharPedidoBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel_AcompanharPedidoBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(jPanel_AcompanharPedidoBGLayout.createSequentialGroup()
+                        .addComponent(jLabel_NrPedido)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jLabel_NrPedidoResp)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton_AtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(90, 90, 90)
+                        .addGap(88, 88, 88)
                         .addComponent(jButton_Voltar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel_AcompanharPedidoBGLayout.createSequentialGroup()
@@ -298,7 +311,10 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel_AcompanharPedidoBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jButton_Voltar)
-                    .addComponent(jButton_AtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jButton_AtStatus, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel_AcompanharPedidoBGLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jLabel_NrPedido)
+                        .addComponent(jLabel_NrPedidoResp)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel_SpriteEntrega, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(26, 26, 26))
@@ -322,9 +338,11 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
     private void jButton_AtStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AtStatusActionPerformed
         // Chama a função:
         // (Obs: passa status após realizar incremento)
-        new PedidoControl().atualizarStatus(nrPedido, ++status); 
+        pedidoControl.atualizarStatus(nrPedido, ++status); 
         // Pós operação:
-        resetTela();
+        carregaTabela();
+        atualizarSprite();
+        if(status > 2) {desabilitaBotao_AtStatus();}
     }//GEN-LAST:event_jButton_AtStatusActionPerformed
 
     private void jButton_VoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_VoltarActionPerformed
@@ -345,6 +363,7 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
             } else {
                 desabilitaBotao_AtStatus();
             }
+            jLabel_NrPedidoResp.setText(String.valueOf(nrPedido));
         }   
     }//GEN-LAST:event_jTable_PedidosMouseClicked
 
@@ -358,6 +377,8 @@ public class TelaAcompanharPedido extends javax.swing.JFrame {
     private javax.swing.JButton jButton_Voltar;
     private javax.swing.JLabel jLabel_IconDir;
     private javax.swing.JLabel jLabel_IconEsq2;
+    private javax.swing.JLabel jLabel_NrPedido;
+    private javax.swing.JLabel jLabel_NrPedidoResp;
     private javax.swing.JLabel jLabel_SpriteEntrega;
     private javax.swing.JLabel jLabel_Title;
     private javax.swing.JPanel jPanel_AcompanharPedidoBG;

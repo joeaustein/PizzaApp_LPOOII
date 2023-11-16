@@ -17,8 +17,7 @@ public class Cliente {
     private String nome;
     private String sobreNome;
     private String telefone;
-    private ArrayList<Pedido> pedidos;
-    
+    private ClienteDAO clienteDAO = new ClienteDAO();
     // ------------------Métodos:------------------ //
     // Contructor 01:
     public Cliente(String nome, String sobreNome, String telefone){
@@ -49,19 +48,13 @@ public class Cliente {
     public void setTelefone(String telefone){
         this.telefone = telefone;
     }    
-    public ArrayList<Pedido> getPedidos(){
-        return pedidos;
-    }
-    public void setPedidos(ArrayList<Pedido> pedidos){
-        this.pedidos = pedidos;
-    }    
     // ---------------------------------------------- //
     // Demais métodos:
     // Cadastrar:
     public void cadastrarCliente(Cliente cliente) throws SQLException {
         System.out.println("Obj Cliente - Iniciando cadastrarCliente..."); 
         try {
-            new ClienteDAO().inserir(cliente);
+            clienteDAO.inserir(cliente);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -70,7 +63,7 @@ public class Cliente {
     public void atualizarCliente(Cliente cliente, String oldTel) throws SQLException {
         System.out.println("Obj Cliente - Iniciando atualizarCliente..."); 
         try {
-            new ClienteDAO().atualizar(cliente, oldTel);
+            clienteDAO.atualizar(cliente, oldTel);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -81,7 +74,7 @@ public class Cliente {
         try {
             // Primeiro limpa os pedidos do cliente:
             new Pedido().limparPedidosCliente(cliente);
-            new ClienteDAO().excluir(cliente);
+            clienteDAO.excluir(cliente);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -91,7 +84,7 @@ public class Cliente {
         System.out.println("Obj Cliente - Iniciando listarClientes..."); 
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new ClienteDAO().listar();
+            clientes = clienteDAO.listar();
         } catch (SQLException e) {
             throw new SQLException(e);
         }  
@@ -102,7 +95,7 @@ public class Cliente {
         System.out.println("Obj Cliente - Iniciando listarClientesComFiltro..."); 
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new ClienteDAO().listarComFiltro(nome, sobrenome, telefone);    
+            clientes = clienteDAO.listarComFiltro(nome, sobrenome, telefone);    
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -113,7 +106,7 @@ public class Cliente {
         System.out.println("Obj Cliente - Iniciando montarClientePorTel..."); 
         Cliente cliente = null;
         try {
-            cliente = new ClienteDAO().montarClientePorTel(telefone);
+            cliente = clienteDAO.montarClientePorTel(telefone);
         } catch (SQLException e) {
             throw new SQLException(e);
         }

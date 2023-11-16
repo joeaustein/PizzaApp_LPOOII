@@ -5,7 +5,6 @@
 package PizzaApp.View;
 
 import PizzaApp.Controller.PedidoControl;
-import PizzaApp.Controller.SaborControl;
 import PizzaApp.Model.Cliente;
 import PizzaApp.Model.Pedido;
 import PizzaApp.Model.Pizza;
@@ -16,10 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListCellRenderer;
@@ -42,6 +38,9 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     private Cliente cliente;
     private Pedido pedidoEmAberto;
     private int idItemSelecionado;
+    private Color colorDisab;
+    private Color colorHabil;
+    private PedidoControl pedidoControl;
     // -------------------------------------------------------Contrutores:-------------------------------------------------------- //
     // Contrutor Default:
     public TelaRealizarPedido() {
@@ -55,6 +54,9 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         this.cliente = null;
         this.pedidoEmAberto = null;
         this.idItemSelecionado = 0;
+        this.colorDisab = new Color(0x65686b);
+        this.colorHabil = new Color(0x161717);
+        this.pedidoControl = new PedidoControl();
         // Inicialização:
         initComponents();
         inicializacaoPersonalizada();
@@ -99,19 +101,19 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         private void updateTextField() {       
             if(!jTextField_Area.getText().equals("")){
                 jTextField_Dimensao.setEnabled(false);
-                jLabel_Dimensao.setForeground(new Color(0x65686b));
+                jLabel_Dimensao.setForeground(colorDisab);
             } else {
                 jTextField_Dimensao.setEnabled(true);
-                jLabel_Dimensao.setForeground(new Color(0x161717));
+                jLabel_Dimensao.setForeground(colorHabil);
             }
             if(!jTextField_Dimensao.getText().equals("") 
                 && !jTextField_Dimensao.getText().equals("Lado")
                 && !jTextField_Dimensao.getText().equals("Raio")){
                 jTextField_Area.setEnabled(false);
-                jLabel_Area.setForeground(new Color(0x65686b));
+                jLabel_Area.setForeground(colorDisab);
             } else {
                 jTextField_Area.setEnabled(true);
-                jLabel_Area.setForeground(new Color(0x161717));
+                jLabel_Area.setForeground(colorHabil);
             }
         }
     }
@@ -205,7 +207,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
                 }
             // index 0 ficara em cinza:      
             if(index == 0) {
-                renderer.setForeground(new Color(0x65686b));
+                renderer.setForeground(colorDisab);
             }
             return this;
         }  
@@ -221,7 +223,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
             }
             // index 0 ficara em cinza:      
             if(index == 0) {
-                renderer.setForeground(new Color(0x65686b));
+                renderer.setForeground(colorDisab);
             }
             return this;
         }  
@@ -233,7 +235,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
             Component renderer = super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
             // index 0 ficara em cinza:      
             if(index == 0) {
-                renderer.setForeground(new Color(0x65686b));
+                renderer.setForeground(colorDisab);
             }
             return this;
         }  
@@ -248,36 +250,32 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         carregaComboBoxForma();
         carregaComboBoxSabor(jComboBox_Sabor1);
         carregaComboBoxSabor(jComboBox_Sabor2);
-        
         // Listeners: 
         // Adiciona FocusListener no campo de filtro, para exibir/esconder as mensagens instrutivas:   
         adicionaFLMsgCampo(jTextField_FiltroTelefone, "Filtrar por Telefone");
-        
         // Validação de preenchimento do campo de filtro para atualizar a combo box:
         jTextField_FiltroTelefone.getDocument().addDocumentListener(new TextFieldsDLFiltro());
-        
         // Validações preenchimento de Area e Dimensao:
-        jTextField_Area.getDocument().addDocumentListener(new TextFieldsDLAreaDimensao());
-        jTextField_Dimensao.getDocument().addDocumentListener(new TextFieldsDLAreaDimensao());
-        
+        DocumentListener dlMedidas = new TextFieldsDLAreaDimensao();
+        jTextField_Area.getDocument().addDocumentListener(dlMedidas);
+        jTextField_Dimensao.getDocument().addDocumentListener(dlMedidas);
         // Validação de preenchimento do campo de filtro para ativar/desativar botão Adicionar Item:
-        jTextField_Dimensao.getDocument().addDocumentListener(new TextFieldsDLMontarPizza());
-        jTextField_Area.getDocument().addDocumentListener(new TextFieldsDLMontarPizza());
-        
+        DocumentListener dlMontarPizza = new TextFieldsDLMontarPizza();
+        jTextField_Dimensao.getDocument().addDocumentListener(dlMontarPizza);
+        jTextField_Area.getDocument().addDocumentListener(dlMontarPizza);
         // Esse Listener vai habilitar/desabilitar o botao Montar Pizza conforme a seleção do cliente:
         jComboBox_Cliente.addActionListener(new ComboBoxClienteAL());
-        
         // Esse Listener vai habilitar/desabilitar o botao Adicionar Item conforme o preenchimento correto:
-        jComboBox_Forma.addActionListener(new ComboBoxMontarPizzaAL());
-        jComboBox_Sabor1.addActionListener(new ComboBoxMontarPizzaAL());
-        jComboBox_Sabor2.addActionListener(new ComboBoxMontarPizzaAL());
-
+        ActionListener alComboBox = new ComboBoxMontarPizzaAL();
+        jComboBox_Forma.addActionListener(alComboBox);
+        jComboBox_Sabor1.addActionListener(alComboBox);
+        jComboBox_Sabor2.addActionListener(alComboBox);
         // Aqui setamos um Renderer para que a ComboBox armazene o obj Cliente, mas apresente apenas o nome:
-        jComboBox_Cliente.setRenderer(new ComboBoxClienteDLCR());
-        jComboBox_Sabor1.setRenderer(new ComboBoxSaborDLCR());
-        jComboBox_Sabor2.setRenderer(new ComboBoxSaborDLCR());
+        DefaultListCellRenderer dlcrComboBox = new ComboBoxSaborDLCR();
+        jComboBox_Sabor1.setRenderer(dlcrComboBox);
+        jComboBox_Sabor2.setRenderer(dlcrComboBox);
+        jComboBox_Cliente.setRenderer(new ComboBoxClienteDLCR());        
         jComboBox_Forma.setRenderer(new ComboBoxFormaDLCR());
-
         // Reset da tela:
         resetTela();    
     }
@@ -298,7 +296,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     }
     // Carrega tela pedidos:
     public void carregaTelaPedidos() {
-        pedidoEmAberto = new PedidoControl().buscarPedidoPendente(cliente);
+        pedidoEmAberto = pedidoControl.buscarPedidoPendente(cliente);
         if(pedidoEmAberto != null) {
             // Se existe pedido em aberto, ja podemos exibir o resumo:
             mostraResumoPedido(pedidoEmAberto);   
@@ -352,37 +350,37 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     }
     // Desabilita labels painel montagem:
     public void desabilitaLabelsMontagem() {
-        jLabel_Forma.setForeground(new Color(0x65686b));
-        jLabel_Sabor1.setForeground(new Color(0x65686b));
-        jLabel_Sabor2.setForeground(new Color(0x65686b));
-        jLabel_Dimensao.setForeground(new Color(0x65686b));
-        jLabel_Area.setForeground(new Color(0x65686b));
+        jLabel_Forma.setForeground(colorDisab);
+        jLabel_Sabor1.setForeground(colorDisab);
+        jLabel_Sabor2.setForeground(colorDisab);
+        jLabel_Dimensao.setForeground(colorDisab);
+        jLabel_Area.setForeground(colorDisab);
     }
     // Habilita labels painel montagem:
     public void habilitaLabelsMontagem() {
-        jLabel_Forma.setForeground(new Color(0x161717));
-        jLabel_Sabor1.setForeground(new Color(0x161717));
-        jLabel_Sabor2.setForeground(new Color(0x161717));
-        jLabel_Dimensao.setForeground(new Color(0x161717));
-        jLabel_Area.setForeground(new Color(0x161717));
+        jLabel_Forma.setForeground(colorHabil);
+        jLabel_Sabor1.setForeground(colorHabil);
+        jLabel_Sabor2.setForeground(colorHabil);
+        jLabel_Dimensao.setForeground(colorHabil);
+        jLabel_Area.setForeground(colorHabil);
     }    
     // Desabilita labels painel resumo:
     public void desabilitaLabelsResumo() {
-        jLabel_ResumoPedido.setForeground(new Color(0x65686b));
-        jLabel_NrPedido.setForeground(new Color(0x65686b));
-        jLabel_ClientePedido.setForeground(new Color(0x65686b));
-        jLabel_ValorTotalPedido.setForeground(new Color(0x65686b));
-        jLabel_StatusPedido.setForeground(new Color(0x65686b));
-        jLabel_ItensPedido.setForeground(new Color(0x65686b));
+        jLabel_ResumoPedido.setForeground(colorDisab);
+        jLabel_NrPedido.setForeground(colorDisab);
+        jLabel_ClientePedido.setForeground(colorDisab);
+        jLabel_ValorTotalPedido.setForeground(colorDisab);
+        jLabel_StatusPedido.setForeground(colorDisab);
+        jLabel_ItensPedido.setForeground(colorDisab);
     }
     // Habilita labels painel resumo:
     public void habilitaLabelsResumo() {
-        jLabel_ResumoPedido.setForeground(new Color(0x161717));
-        jLabel_NrPedido.setForeground(new Color(0x161717));
-        jLabel_ClientePedido.setForeground(new Color(0x161717));
-        jLabel_ValorTotalPedido.setForeground(new Color(0x161717));
-        jLabel_StatusPedido.setForeground(new Color(0x161717));
-        jLabel_ItensPedido.setForeground(new Color(0x161717));
+        jLabel_ResumoPedido.setForeground(colorHabil);
+        jLabel_NrPedido.setForeground(colorHabil);
+        jLabel_ClientePedido.setForeground(colorHabil);
+        jLabel_ValorTotalPedido.setForeground(colorHabil);
+        jLabel_StatusPedido.setForeground(colorHabil);
+        jLabel_ItensPedido.setForeground(colorHabil);
     }  
     // Mostra resumo do pedido:
     public void mostraResumoPedido(Pedido pedido) {
@@ -424,7 +422,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         tableModel.setRowCount(0);
         if(pedido != null) {
             // Popula tableModel para jTable_Clientes:
-            ArrayList<Pizza> itens = new PedidoControl().listarItens(pedido);
+            ArrayList<Pizza> itens = pedidoControl.listarItens(pedido);
             // Tratamento em caso de null:            
             if(itens != null) {
                 itens.forEach((Pizza pizza) -> {
@@ -465,7 +463,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         // Tem filtro?
         if(filtro.equals("") || filtro.equals("Filtrar por Telefone")) {
             // Chama função para recuperar os clientes e salvar os nomes:
-            ArrayList<Cliente> clientes = new PedidoControl().listarClientes();
+            ArrayList<Cliente> clientes = pedidoControl.listarClientes();
             // Tratamento em caso de null:
             if(clientes != null) {
                 // Preenche comboBox:
@@ -477,7 +475,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
             }
         } else {
             // Chama função para recuperar os clientes (filtrando) e salvar os objetos:
-            ArrayList<Cliente> clientes = new PedidoControl().listarClientesComFiltro(filtro);
+            ArrayList<Cliente> clientes = pedidoControl.listarClientesComFiltro(filtro);
             // Tratamento em caso de null:
             if(clientes != null) {
                 // Preenche comboBox:
@@ -500,7 +498,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         dafaultMsg.setNomeSabor("Selecione o Sabor");
         model.addElement(dafaultMsg);
         // Chama função para recuperar os sabores e salvar os objetos:
-        ArrayList<Sabor> sabores = new PedidoControl().listarSabores();
+        ArrayList<Sabor> sabores = pedidoControl.listarSabores();
         // Tratamento em caso de null:
         if(sabores != null) {
             // Preenche comboBox:
@@ -527,7 +525,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     // Essa função irá adicionar um FocusListener num campo de texto para exibir/esconder a msg instrutiva:
     public void adicionaFLMsgCampo(JTextField textField, String msg) {
         // Iniciando com a mensagem instrutiva em cinza:
-        textField.setForeground(new Color(0x65686b));
+        textField.setForeground(colorDisab);
         textField.setText(msg);
 
         // Adicionando FocusListener: 
@@ -536,14 +534,14 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
             public void focusGained(FocusEvent e) {
                 if (textField.getText().equals(msg)) {
                     textField.setText("");
-                    textField.setForeground(new Color(0x161717));
+                    textField.setForeground(colorHabil);
                 }
             }
             @Override
             public void focusLost(FocusEvent e) {
                 if (textField.getText().isEmpty()) {
                     textField.setText(msg);
-                    textField.setForeground(new Color(0x65686b));
+                    textField.setForeground(colorDisab);
                 }
             }     
         });
@@ -552,52 +550,49 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     // Metodos dos botões:
     // Botão Montar Pizza:
     public void desabilitaBotao_MontarPizza() {
-        jButton_MontarPizza.setForeground(new Color (0x65686b));
+        jButton_MontarPizza.setForeground(colorDisab);
         jButton_MontarPizza.setEnabled(false);
     }
     public void habilitaBotao_MontarPizza() {
-        jButton_MontarPizza.setForeground(new Color (0x161717));
+        jButton_MontarPizza.setForeground(colorHabil);
         jButton_MontarPizza.setEnabled(true);
     }
     // Botão Adicionar Item:
     public void desabilitaBotao_AdicionarItem() {
-        jButton_AdicionarItem.setForeground(new Color (0x65686b));
+        jButton_AdicionarItem.setForeground(colorDisab);
         jButton_AdicionarItem.setEnabled(false);
     }
     public void habilitaBotao_AdicionarItem() {
-        jButton_AdicionarItem.setForeground(new Color (0x161717));
+        jButton_AdicionarItem.setForeground(colorHabil);
         jButton_AdicionarItem.setEnabled(true);
     }
     // Botão Finalizar Pedido:
     public void desabilitaBotao_FinalizarPedido() {
-        jButton_FinalizarPedido.setForeground(new Color (0x65686b));
+        jButton_FinalizarPedido.setForeground(colorDisab);
         jButton_FinalizarPedido.setEnabled(false);
     }
     public void habilitaBotao_FinalizarPedido() {
-        jButton_FinalizarPedido.setForeground(new Color (0x161717));
+        jButton_FinalizarPedido.setForeground(colorHabil);
         jButton_FinalizarPedido.setEnabled(true);
     }
     // Botão Cancelar Pedido:
     public void desabilitaBotao_CancelarPedido() {
-        jButton_CancelarPedido.setForeground(new Color (0x65686b));
+        jButton_CancelarPedido.setForeground(colorDisab);
         jButton_CancelarPedido.setEnabled(false);
     }
     public void habilitaBotao_CancelarPedido() {
-        jButton_CancelarPedido.setForeground(new Color (0x161717));
+        jButton_CancelarPedido.setForeground(colorHabil);
         jButton_CancelarPedido.setEnabled(true);
     }
     // Botão Alterar Item:
     public void desabilitaBotao_ExcluirItem() {
-        jButton_ExcluirItem.setForeground(new Color (0x65686b));
+        jButton_ExcluirItem.setForeground(colorDisab);
         jButton_ExcluirItem.setEnabled(false);
     }
     public void habilitaBotao_ExcluirItem() {
-        jButton_ExcluirItem.setForeground(new Color (0x161717));
+        jButton_ExcluirItem.setForeground(colorHabil);
         jButton_ExcluirItem.setEnabled(true);
     }
-    
-    // ------------------------------------------------------------- //
-    
     // ----------------------------------------------------------------------------------------------------------------------------- //
     
     /**
@@ -693,12 +688,6 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         jLabel_Telefone.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel_Telefone.setForeground(new java.awt.Color(255, 189, 89));
         jLabel_Telefone.setText("Telefone:");
-
-        jTextField_FiltroTelefone.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_FiltroTelefoneActionPerformed(evt);
-            }
-        });
 
         jPanel_Resumo.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -882,31 +871,14 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         jLabel_Forma.setText("Forma:");
 
         jComboBox_Forma.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        jComboBox_Forma.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox_FormaActionPerformed(evt);
-            }
-        });
 
         jLabel_Dimensao.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel_Dimensao.setForeground(new java.awt.Color(22, 23, 23));
         jLabel_Dimensao.setText("Dimensão:");
 
-        jTextField_Dimensao.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_DimensaoActionPerformed(evt);
-            }
-        });
-
         jLabel_Area.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel_Area.setForeground(new java.awt.Color(22, 23, 23));
         jLabel_Area.setText("Área:");
-
-        jTextField_Area.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField_AreaActionPerformed(evt);
-            }
-        });
 
         jLabel_Sabor1.setFont(new java.awt.Font("Segoe UI Black", 0, 18)); // NOI18N
         jLabel_Sabor1.setForeground(new java.awt.Color(22, 23, 23));
@@ -1083,10 +1055,6 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField_FiltroTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_FiltroTelefoneActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_FiltroTelefoneActionPerformed
-
     private void jButton_AdicionarItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_AdicionarItemActionPerformed
         // Iniciando variaveis:
         String forma = null;
@@ -1117,10 +1085,10 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         }
         if(pedidoEmAberto == null) {
             // Gera o novo pedido:
-            pedidoEmAberto = new PedidoControl().gerarNovoPedido(cliente, forma, sabor1, sabor2, area, dimensao);
+            pedidoEmAberto = pedidoControl.gerarNovoPedido(cliente, forma, sabor1, sabor2, area, dimensao);
         } else {
             // Adiciona item ao pedido:
-            new PedidoControl().adicionarItemPedido(pedidoEmAberto, forma, sabor1, sabor2, area, dimensao);
+            pedidoControl.adicionarItemPedido(pedidoEmAberto, forma, sabor1, sabor2, area, dimensao);
         }    
 
         // Mostra resumo pedido:
@@ -1128,17 +1096,8 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         desabilitaFormularioMontagem();
     }//GEN-LAST:event_jButton_AdicionarItemActionPerformed
 
-    private void jTextField_DimensaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_DimensaoActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_DimensaoActionPerformed
-
-    private void jTextField_AreaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField_AreaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField_AreaActionPerformed
-
     private void jButton_ExcluirItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_ExcluirItemActionPerformed
-        // TODO add your handling code here:
-        if(new PedidoControl().excluirItemPedido(pedidoEmAberto, idItemSelecionado)) {
+        if(pedidoControl.excluirItemPedido(pedidoEmAberto, idItemSelecionado)) {
             apresentarMsg("Item excluido!");
             carregaTelaPedidos();
         } else {
@@ -1147,8 +1106,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_ExcluirItemActionPerformed
 
     private void jButton_FinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_FinalizarPedidoActionPerformed
-        // TODO add your handling code here:
-        if(new PedidoControl().atualizarStatus(pedidoEmAberto.getNrPedido(), 1)) {
+        if(pedidoControl.atualizarStatus(pedidoEmAberto.getNrPedido(), 1)) {
             apresentarMsg("Pedido realizado!");
             carregaTelaPedidos();
         } else {
@@ -1161,8 +1119,7 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton_MontarPizzaActionPerformed
 
     private void jButton_CancelarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton_CancelarPedidoActionPerformed
-        // TODO add your handling code here:
-        if(new PedidoControl().excluirPedido(pedidoEmAberto)) {
+        if(pedidoControl.excluirPedido(pedidoEmAberto)) {
             apresentarMsg("Pedido cancelado!");
             carregaTelaPedidos();
         } else {
@@ -1200,10 +1157,6 @@ public class TelaRealizarPedido extends javax.swing.JFrame {
         jTable_Itens.clearSelection();
         desabilitaBotao_ExcluirItem();
     }//GEN-LAST:event_jPanel_MontarPizzaMouseClicked
-
-    private void jComboBox_FormaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox_FormaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox_FormaActionPerformed
 // ----------------------------------------------------------------------------------------------------------------------------- //
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

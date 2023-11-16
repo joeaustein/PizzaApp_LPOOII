@@ -4,8 +4,6 @@
  */
 package PizzaApp.View;
 
-import java.awt.Color;
-
 /**
  *
  * @author joeau

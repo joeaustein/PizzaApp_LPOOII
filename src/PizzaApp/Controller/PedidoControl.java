@@ -4,15 +4,10 @@
  */
 package PizzaApp.Controller;
 
-import PizzaApp.Model.Circulo;
 import PizzaApp.Model.Cliente;
-import PizzaApp.Model.Forma;
 import PizzaApp.Model.Pedido;
 import PizzaApp.Model.Pizza;
-import PizzaApp.Model.Quadrado;
 import PizzaApp.Model.Sabor;
-import PizzaApp.Model.Triangulo;
-import PizzaApp.View.TelaCadastrarCliente;
 import PizzaApp.View.TelaRealizarPedido;
 import java.util.ArrayList;
 import java.sql.SQLException;
@@ -23,17 +18,20 @@ import java.sql.SQLException;
  */
 
 public class PedidoControl {
+    // -----------------------Atributos---------------------- //
+    TelaRealizarPedido viewRealizarPedido = new TelaRealizarPedido();
+    Pedido pedidoModel = new Pedido();
     // ----------------------Métodos----------------------  //
     // Listar clientes para a tela de geração de pedido:  
     public ArrayList<Cliente> listarClientes() {
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new Pedido().listarClientes();
+            clientes = pedidoModel.listarClientes();
         } catch (SQLException e) {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewRealizarPedido.apresentarMsg(msgErro);
         }
         return clientes;
     }
@@ -42,12 +40,12 @@ public class PedidoControl {
     public ArrayList<Cliente> listarClientesComFiltro(String telefone) {
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new Pedido().listarClientesComFiltro(telefone);
+            clientes = pedidoModel.listarClientesComFiltro(telefone);
         } catch (SQLException e) {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewRealizarPedido.apresentarMsg(msgErro);
         }
         return clientes;
     }
@@ -57,12 +55,12 @@ public class PedidoControl {
         if  (cliente != null) {
                 Pedido pedidoPendente = null;
                 try {
-                    pedidoPendente = new Pedido().buscarPedidoPendente(cliente);
+                    pedidoPendente = pedidoModel.buscarPedidoPendente(cliente);
                 } catch (SQLException e) {
                     String msgErro = e.getMessage();
                     System.out.println(msgErro);
                     // Função para apresentar erro na View:
-                    new TelaRealizarPedido().apresentarMsg(msgErro);
+                    viewRealizarPedido.apresentarMsg(msgErro);
                 }
                 return pedidoPendente;
         } else {
@@ -74,12 +72,12 @@ public class PedidoControl {
     public ArrayList<Sabor> listarSabores() {
         ArrayList<Sabor> sabores = null;
         try {
-            sabores = new Pedido().listarSabores();
+            sabores = pedidoModel.listarSabores();
         } catch (SQLException e) {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewRealizarPedido.apresentarMsg(msgErro);
         }
         return sabores;
     }
@@ -109,21 +107,21 @@ public class PedidoControl {
                 // Validações de entrada:
                 validaEntradaMedidas(forma, area, dimensao);
                  // Chama função:
-                pedido = new Pedido().gerarNovoPedido(cliente, forma, sabor1, sabor2, area, dimensao);
-                new TelaRealizarPedido().apresentarMsg("Novo pedido gerado!");   
+                pedido = pedidoModel.gerarNovoPedido(cliente, forma, sabor1, sabor2, area, dimensao);
+                viewRealizarPedido.apresentarMsg("Novo pedido gerado!");   
             } catch (IllegalArgumentException e) {
                 String msgErro = "Erro ao tentar gerar novo pedido! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaRealizarPedido().apresentarMsg(msgErro);          
+                viewRealizarPedido.apresentarMsg(msgErro);          
             } catch (SQLException e) {
                 String msgErro = "Erro ao tentar gerar novo pedido! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaRealizarPedido().apresentarMsg(msgErro);
+                viewRealizarPedido.apresentarMsg(msgErro);
             } 
         } else {
-            new TelaRealizarPedido().apresentarMsg("Dados preenchidos incorretamente!");
+            viewRealizarPedido.apresentarMsg("Dados preenchidos incorretamente!");
         }
         return pedido;
     }
@@ -145,21 +143,21 @@ public class PedidoControl {
                 // Validações de entrada:
                 validaEntradaMedidas(forma, area, dimensao);
                 // Chama função:
-                new Pedido().adicionarItemPedido(pedido, forma, sabor1, sabor2, area, dimensao);
-                new TelaRealizarPedido().apresentarMsg("Item adicionado ao pedido!");  
+                pedidoModel.adicionarItemPedido(pedido, forma, sabor1, sabor2, area, dimensao);
+                viewRealizarPedido.apresentarMsg("Item adicionado ao pedido!");  
             } catch (IllegalArgumentException e) {
                 String msgErro = "Erro ao tentar adicionar item ao pedido! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaRealizarPedido().apresentarMsg(msgErro); 
+                viewRealizarPedido.apresentarMsg(msgErro); 
             } catch (SQLException e) {
                 String msgErro = "Erro ao tentar adicionar item ao pedido! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaRealizarPedido().apresentarMsg(msgErro);
+                viewRealizarPedido.apresentarMsg(msgErro);
             } 
         } else {
-            new TelaRealizarPedido().apresentarMsg("Dados preenchidos incorretamente!");
+            viewRealizarPedido.apresentarMsg("Dados preenchidos incorretamente!");
         }
     }
     // ------------------------------------------------------ //
@@ -171,7 +169,7 @@ public class PedidoControl {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewRealizarPedido.apresentarMsg(msgErro);
             return false;
         }    
         return true;    
@@ -185,7 +183,7 @@ public class PedidoControl {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewRealizarPedido.apresentarMsg(msgErro);
             return false;
         }    
         return true;    
@@ -194,12 +192,12 @@ public class PedidoControl {
     // Atualizar status:
     public boolean atualizarStatus(int nrPedido, int status) {
         try {
-            new Pedido().atualizarStatus(nrPedido, status);
+            pedidoModel.atualizarStatus(nrPedido, status);
         } catch (SQLException e) {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewRealizarPedido.apresentarMsg(msgErro);
             return false;
         }    
         return true;
@@ -230,12 +228,12 @@ public class PedidoControl {
     public ArrayList<Pedido> listarPedidos() {
         ArrayList<Pedido> pedidos = null;
         try {
-            pedidos = new Pedido().listarPedidos();
+            pedidos = pedidoModel.listarPedidos();
         } catch (SQLException e) {
                 String msgErro = e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaCadastrarCliente().apresentarMsg(msgErro);
+                viewRealizarPedido.apresentarMsg(msgErro);
         }
         return pedidos;
     }

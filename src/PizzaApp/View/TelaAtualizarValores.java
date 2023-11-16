@@ -7,8 +7,6 @@ package PizzaApp.View;
 import PizzaApp.Controller.TipoSaborControl;
 import PizzaApp.Model.TipoSabor;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.event.DocumentEvent;
@@ -22,6 +20,7 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
     // --------------------------------------------------------Atributos:---------------------------------------------------------- //
     // Variáveis globais:
     private TelaHome home;
+    private TipoSaborControl tipoSaborControl;
     // -------------------------------------------------------Contrutores:-------------------------------------------------------- //
     public TelaAtualizarValores() {
         initComponents();
@@ -31,6 +30,7 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
     public TelaAtualizarValores(TelaHome home) {
         // Armazenamos a tela anterior para a navegabilidade (opção "voltar"):
         this.home = home;
+        this.tipoSaborControl = new TipoSaborControl();
         // Inicialização:
         initComponents();
         inicializacaoPersonalizada();
@@ -84,10 +84,10 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
         // (A ideia é colocar aqui as configurações adicionais de inicialização)
         
         // Campos do Reajuste:
-        jTextField_ValorSimples.getDocument().addDocumentListener(new TextFieldsDLReajustes());
-        jTextField_ValorEspecial.getDocument().addDocumentListener(new TextFieldsDLReajustes());
-        jTextField_ValorPremium.getDocument().addDocumentListener(new TextFieldsDLReajustes());
-        
+        DocumentListener dlReajuste = new TextFieldsDLReajustes();
+        jTextField_ValorSimples.getDocument().addDocumentListener(dlReajuste);
+        jTextField_ValorEspecial.getDocument().addDocumentListener(dlReajuste);
+        jTextField_ValorPremium.getDocument().addDocumentListener(dlReajuste);
         // Reset da tela:
         resetTela();  
     }
@@ -114,7 +114,7 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
     // ------------------------------------------------------------- //
     // Carregamento de valores:
     public void carregarValores(){
-        ArrayList<TipoSabor> tipos = new TipoSaborControl().listarTipos();
+        ArrayList<TipoSabor> tipos = tipoSaborControl.listarTipos();
         
         jLabel_ValorSimples.setText(Double.toString(tipos.get(0).getValorCm2()));
         jLabel_ValorEspecial.setText(Double.toString(tipos.get(1).getValorCm2()));
@@ -131,7 +131,6 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
         jButton_Atualizar.setForeground(new Color (0x161717));
         jButton_Atualizar.setEnabled(true);
     }
-    // ------------------------------------------------------------- //
     // ----------------------------------------------------------------------------------------------------------------------------- //
     
     /**
@@ -167,7 +166,6 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
         setTitle("Atualizar Valores");
         setMaximumSize(new java.awt.Dimension(800, 600));
         setMinimumSize(new java.awt.Dimension(800, 600));
-        setPreferredSize(new java.awt.Dimension(800, 600));
         setResizable(false);
 
         jPanel_AtualizarValoresBG.setBackground(new java.awt.Color(255, 49, 49));
@@ -374,7 +372,7 @@ public class TelaAtualizarValores extends javax.swing.JFrame {
             valor = jTextField_ValorPremium.getText();
         } 
         // Chama função:
-        new TipoSaborControl().atualizarValor(idTipo, valor);
+        tipoSaborControl.atualizarValor(idTipo, valor);
         // Pós operação:
         resetTela();
     }//GEN-LAST:event_jButton_AtualizarActionPerformed

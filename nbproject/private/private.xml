@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Controller/ClienteControl.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/View/TelaAtualizarValores.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/DAO/ClienteDAO.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/DAO/PedidoDAO.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Model/Pedido.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Model/TipoSabor.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/View/TelaHome.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Controller/SaborControl.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Model/Cliente.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/View/TelaAcompanharPedido.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/View/TelaCadastrarCliente.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Model/Pizza.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/DAO/SaborDAO.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/DAO/TipoSaborDAO.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/View/TelaRealizarPedido.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Model/Sabor.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Controller/PedidoControl.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/Controller/TipoSaborControl.java</file>
+            <file>file:/C:/Users/joeau/Documents/NetBeansProjects/PizzaApp/src/PizzaApp/View/TelaCadastrarSabor.java</file>
+        </group>
+    </open-files>
+</project-private>

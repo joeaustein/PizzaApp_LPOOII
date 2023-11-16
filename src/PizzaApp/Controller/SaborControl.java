@@ -6,7 +6,6 @@ package PizzaApp.Controller;
 
 import PizzaApp.Model.Sabor;
 import PizzaApp.View.TelaCadastrarSabor;
-import PizzaApp.View.TelaRealizarPedido;
 import java.util.ArrayList;
 import java.sql.SQLException;
 
@@ -15,16 +14,19 @@ import java.sql.SQLException;
  * @author joeau
  */
 public class SaborControl {
+    // -----------------------Atributos---------------------- //
+    TelaCadastrarSabor viewCadSabor = new TelaCadastrarSabor();
+    Sabor saborModel = new Sabor();
     // ----------------------Métodos----------------------  //
     public ArrayList<Sabor> listarSabores() {
         ArrayList<Sabor> sabores = null;
         try {
-            sabores = new Sabor().listarSabores();
+            sabores = saborModel.listarSabores();
         } catch (SQLException e){
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaRealizarPedido().apresentarMsg(msgErro);
+            viewCadSabor.apresentarMsg(msgErro);
         }
         return sabores;
     } 
@@ -39,29 +41,29 @@ public class SaborControl {
             // Armazenamos tudo em letras maiúsculas:
             nomeSabor = nomeSabor.toUpperCase();
             try {
-                new Sabor().cadastrarSabor(idTipo, nomeSabor);
-                new TelaCadastrarSabor().apresentarMsg("Sabor cadastrado com sucesso!");
+                saborModel.cadastrarSabor(idTipo, nomeSabor);
+                viewCadSabor.apresentarMsg("Sabor cadastrado com sucesso!");
             } catch (SQLException e) {
                 String msgErro = "Erro ao tentar cadastrar sabor! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaCadastrarSabor().apresentarMsg(msgErro);
+                viewCadSabor.apresentarMsg(msgErro);
             }         
         } else {
-            new TelaCadastrarSabor().apresentarMsg("Dados preenchidos incorretamente!");
+            viewCadSabor.apresentarMsg("Dados preenchidos incorretamente!");
         }   
     }
     // ------------------------------------------------------ //
     // Excluir sabor:
     public void excluirSabor(int idSabor) { 
         try {
-            new Sabor().excluirSabor(idSabor);
-            new TelaCadastrarSabor().apresentarMsg("Sabor excluido com sucesso!");
+            saborModel.excluirSabor(idSabor);
+            viewCadSabor.apresentarMsg("Sabor excluido com sucesso!");
         } catch (SQLException e) {
             String msgErro = "Erro ao tentar excluir sabor! Msg: " + e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaCadastrarSabor().apresentarMsg(msgErro);
+            viewCadSabor.apresentarMsg(msgErro);
         }    
     }
     // ------------------------------------------------------ //

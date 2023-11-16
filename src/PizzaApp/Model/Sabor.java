@@ -17,14 +17,14 @@ public class Sabor {
     private int idSabor;
     private TipoSabor tipoSabor;
     private String nomeSabor; 
-
+    private SaborDAO saborDAO = new SaborDAO();
     // ------------------Métodos:------------------ //
     // Contructor 01 (utilizado na recuperação também):
     public Sabor(int id, int tipoSabor, String nome) throws SQLException {
         this.idSabor = id;
         this.nomeSabor = nome;
         try {
-            this.tipoSabor = new TipoSabor().montaTipo(tipoSabor);
+            this.tipoSabor = new TipoSabor().montarTipo(tipoSabor);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -56,7 +56,7 @@ public class Sabor {
         System.out.println("Obj Sabor - Iniciando listarSabores..."); 
         ArrayList<Sabor> sabores = null;
         try {
-            sabores = new SaborDAO().listar();
+            sabores = saborDAO.listar();
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -67,7 +67,7 @@ public class Sabor {
         System.out.println("Obj Sabor - Iniciando recuperarSabor..."); 
         Sabor sabor = null;
         try {
-            sabor = new SaborDAO().montarSaborPorID(idSabor);
+            sabor = saborDAO.montarSaborPorID(idSabor);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -77,7 +77,7 @@ public class Sabor {
     public void cadastrarSabor(int idTipo, String nomeSabor) throws SQLException {
         System.out.println("Obj Sabor - Iniciando cadastrarSabor..."); 
         try {
-            new SaborDAO().cadastrarSabor(idTipo, nomeSabor);
+            saborDAO.cadastrarSabor(idTipo, nomeSabor);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -86,7 +86,7 @@ public class Sabor {
     public void excluirSabor(int idSabor) throws SQLException {
         System.out.println("Obj Sabor - Iniciando excluirSabor..."); 
         try {
-            new SaborDAO().excluir(idSabor);
+            saborDAO.excluir(idSabor);
         } catch (SQLException e) {
             throw new SQLException(e);
         }

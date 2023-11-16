@@ -22,7 +22,7 @@ public class Pizza {
     private Sabor sabor2;
     private double area;
     private double valor;
-    
+    private PizzaDAO pizzaDAO = new PizzaDAO();
     // ------------------Métodos:------------------ //
     // Contructor 01 (para novo item, com inserção na base):
     public Pizza(int nrPedido, Forma forma, Sabor sabor01, Sabor sabor02) throws SQLException {
@@ -148,7 +148,7 @@ public class Pizza {
         System.out.println("Obj Pizza - Iniciando inserirPizza..."); 
         int idGerado = 0;
         try {
-            idGerado = new PizzaDAO().inserir(pizza);
+            idGerado = pizzaDAO.inserir(pizza);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -159,7 +159,7 @@ public class Pizza {
         System.out.println("Obj Pizza - Iniciando listarItensPorPedido..."); 
         ArrayList<Pizza> itens = null;
         try {
-            itens = new PizzaDAO().listarItensPedido(nrPedido);
+            itens = pizzaDAO.listarItensPedido(nrPedido);
         } catch (SQLException e) {
             throw new SQLException(e);
         }    
@@ -169,7 +169,7 @@ public class Pizza {
     public void limparItensPorPedido(int nrPedido) throws SQLException {
         System.out.println("Obj Pizza - Iniciando limparItensPorPedido..."); 
         try {
-            new PizzaDAO().limparItensPedido(nrPedido);
+            pizzaDAO.limparItensPedido(nrPedido);
         } catch (SQLException e) {
             throw new SQLException(e);
         }    
@@ -178,7 +178,7 @@ public class Pizza {
     public void excluirItemPedido(int nrPedido, int idItem) throws SQLException {
         System.out.println("Obj Pizza - Iniciando excluirItemPedido..."); 
         try {
-            new PizzaDAO().excluirItemPedido(nrPedido, idItem);
+            pizzaDAO.excluirItemPedido(nrPedido, idItem);
         } catch (SQLException e) {
             throw new SQLException(e);
         }    

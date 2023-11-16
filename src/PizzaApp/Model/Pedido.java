@@ -20,7 +20,9 @@ public class Pedido {
     private double valorTotal;
     private int status;
     private ArrayList<Pizza> itens;
-    
+    private PedidoDAO pedidoDAO = new PedidoDAO();
+    private Pizza pizzaModel = new Pizza();
+    private Cliente clienteModel = new Cliente();
     // ------------------Métodos:------------------ //
     // Contructor 01 (para geração de novo pedido, é chamado por PedidoDAO, que gera o ID):
     public Pedido(int nrPedido, Cliente cliente){
@@ -35,9 +37,9 @@ public class Pedido {
         this.status = status;
         try {
             // Buscar/montar cliente por tel:
-            this.cliente = new Cliente().montarClientePorTel(telCliente);
+            this.cliente = clienteModel.montarClientePorTel(telCliente);
             // Busca/montar lista de itens:
-            this.itens = new Pizza().listarItensPorPedido(nrPedido);
+            this.itens = pizzaModel.listarItensPorPedido(nrPedido);
             // Operação para calcular valor total após termos carregado a lista:      
             calcularValorTotal();
         } catch (SQLException e) {
@@ -86,7 +88,7 @@ public class Pedido {
     public void limparPedidosCliente(Cliente cliente) throws SQLException {
         System.out.println("Obj Pedido - Iniciando limparPedidosCliente..."); 
         try {
-            new PedidoDAO().excluirPorCliente(cliente);
+            pedidoDAO.excluirPorCliente(cliente);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -96,7 +98,7 @@ public class Pedido {
         System.out.println("Obj Pedido - Iniciando listarClientes..."); 
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new Cliente().listarClientes();    
+            clientes = clienteModel.listarClientes();    
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -107,7 +109,7 @@ public class Pedido {
         System.out.println("Obj Pedido - Iniciando listarClientesComFiltro..."); 
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new Cliente().listarClientesComFiltro("", "", telefone);   
+            clientes = clienteModel.listarClientesComFiltro("", "", telefone);   
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -129,7 +131,7 @@ public class Pedido {
         System.out.println("Obj Pedido - Iniciando buscarPedidoPendente..."); 
         Pedido pedidoPendente = null;
         try {
-            pedidoPendente = new PedidoDAO().buscarPedidoPendente(cliente);
+            pedidoPendente = pedidoDAO.buscarPedidoPendente(cliente);
             if (pedidoPendente != null) {
                 // Função para montar lista de itens do pedido, buscando na base:     
                 pedidoPendente.recuperarListaItens(); 
@@ -147,7 +149,7 @@ public class Pedido {
         Pedido novoPedido = null;
         try {
             // Gera novo pedido (apenas com o cliente e o id recuperado pós inserção):
-            novoPedido = new PedidoDAO().gerarPedido(cliente);  
+            novoPedido = pedidoDAO.gerarPedido(cliente);  
             // Cria objeto Pizza e insere na base:
             adicionarItemPedido(novoPedido, forma, sabor1, sabor2, area, dimensao);
             // Função para montar lista de itens do pedido, buscando na base:     
@@ -164,7 +166,7 @@ public class Pedido {
     public void adicionarItemPedido(Pedido pedido, String forma, Sabor sabor1, Sabor sabor2, double area, double dimensao) throws SQLException {
         System.out.println("Obj Pedido - Iniciando adicionarItemPedido..."); 
         try {
-            new Pizza().adicionarItemPedido(pedido.getNrPedido(), forma, sabor1, sabor2, area, dimensao);
+            pizzaModel.adicionarItemPedido(pedido.getNrPedido(), forma, sabor1, sabor2, area, dimensao);
             // Função para montar lista de itens do pedido, buscando na base:     
             pedido.recuperarListaItens(); 
             // Calculamos o valor após termos a lista preenchida:  
@@ -177,7 +179,7 @@ public class Pedido {
     public void recuperarListaItens() throws SQLException {
         System.out.println("Obj Pedido - Iniciando recuperarListaItens..."); 
         try {
-            this.itens = new Pizza().listarItensPorPedido(nrPedido);
+            this.itens = pizzaModel.listarItensPorPedido(nrPedido);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -195,7 +197,7 @@ public class Pedido {
     public void atualizarStatus(int nrPedido, int status) throws SQLException {
         System.out.println("Obj Pedido - Iniciando atualizarStatus..."); 
         try {
-            new PedidoDAO().atualizarStatus(nrPedido, status);
+            pedidoDAO.atualizarStatus(nrPedido, status);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -205,7 +207,7 @@ public class Pedido {
         System.out.println("Obj Pedido - Iniciando excluirPedido..."); 
         try {
             limparItensPedido(pedido);
-            new PedidoDAO().excluir(pedido.nrPedido);
+            pedidoDAO.excluir(pedido.nrPedido);
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -214,7 +216,7 @@ public class Pedido {
     public void limparItensPedido(Pedido pedido) throws SQLException {
         System.out.println("Obj Pedido - Iniciando limparItensPedido..."); 
         try {
-            new Pizza().limparItensPorPedido(pedido.nrPedido); 
+            pizzaModel.limparItensPorPedido(pedido.nrPedido); 
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -223,7 +225,7 @@ public class Pedido {
     public void excluirItemPedido(Pedido pedido, int idItem) throws SQLException {
         System.out.println("Obj Pedido - Iniciando excluirItemPedido..."); 
         try {
-            new Pizza().excluirItemPedido(pedido.nrPedido, idItem); 
+            pizzaModel.excluirItemPedido(pedido.nrPedido, idItem); 
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -233,7 +235,7 @@ public class Pedido {
         System.out.println("Obj Pedido - Iniciando recuperarPedido..."); 
         Pedido pedido = null;
         try {
-            pedido = new PedidoDAO().montarPedidoPorID(nrPedido);   
+            pedido = pedidoDAO.montarPedidoPorID(nrPedido);   
         } catch (SQLException e) {
             throw new SQLException(e);
         }
@@ -244,7 +246,7 @@ public class Pedido {
         System.out.println("Obj Pedido - Iniciando listarPedidos..."); 
         ArrayList<Pedido> pedidos = null;
         try {
-            pedidos = new PedidoDAO().listar();
+            pedidos = pedidoDAO.listar();
         } catch (SQLException e) {
             throw new SQLException(e);
         }  

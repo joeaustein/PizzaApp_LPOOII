@@ -15,6 +15,9 @@ import java.sql.SQLException;
  */
 
 public class ClienteControl {
+    // -----------------------Atributos---------------------- //
+    TelaCadastrarCliente viewCadCliente = new TelaCadastrarCliente();
+    Cliente clienteModel = new Cliente();
     // ----------------------Métodos----------------------  //
     // Cadastrar cliente:
     public void cadastrarCliente(String nome, String sobreNome, String telefone) {
@@ -35,15 +38,15 @@ public class ClienteControl {
             Cliente cliente = new Cliente(nome, sobreNome, telefone);
             try {
                 cliente.cadastrarCliente(cliente);
-                new TelaCadastrarCliente().apresentarMsg("Cliente cadastrado com sucesso!");
+                viewCadCliente.apresentarMsg("Cliente cadastrado com sucesso!");
             } catch (SQLException e) {
                 String msgErro = "Erro ao tentar cadastrar cliente! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaCadastrarCliente().apresentarMsg(msgErro);
+                viewCadCliente.apresentarMsg(msgErro);
             }         
         } else {
-            new TelaCadastrarCliente().apresentarMsg("Dados preenchidos incorretamente!");
+            viewCadCliente.apresentarMsg("Dados preenchidos incorretamente!");
         }   
     }
     // ------------------------------------------------------ //
@@ -66,15 +69,15 @@ public class ClienteControl {
             Cliente cliente = new Cliente(nome, sobreNome, telefone);
             try {
                 cliente.atualizarCliente(cliente, oldTel);
-                new TelaCadastrarCliente().apresentarMsg("Cliente atualizado com sucesso!");
+                viewCadCliente.apresentarMsg("Cliente atualizado com sucesso!");
             } catch (SQLException e) {
                 String msgErro = "Erro ao tentar atualizar cliente! Msg: " + e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaCadastrarCliente().apresentarMsg(msgErro);
+                viewCadCliente.apresentarMsg(msgErro);
             } 
         } else {
-            new TelaCadastrarCliente().apresentarMsg("Dados preenchidos incorretamente!");
+            viewCadCliente.apresentarMsg("Dados preenchidos incorretamente!");
         }
     }
     // ------------------------------------------------------ //
@@ -83,12 +86,12 @@ public class ClienteControl {
         Cliente cliente = new Cliente(nome, sobreNome, telefone);
         try {
             cliente.excluirCliente(cliente);
-            new TelaCadastrarCliente().apresentarMsg("Cliente excluido com sucesso!");
+            viewCadCliente.apresentarMsg("Cliente excluido com sucesso!");
         } catch (SQLException e) {
             String msgErro = "Erro ao tentar excluir cliente! Msg: " + e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaCadastrarCliente().apresentarMsg(msgErro);
+            viewCadCliente.apresentarMsg(msgErro);
         }    
     }
     // ------------------------------------------------------ //
@@ -96,12 +99,12 @@ public class ClienteControl {
     public ArrayList<Cliente> listarClientes() {
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new Cliente().listarClientes();
+            clientes = clienteModel.listarClientes();
         } catch (SQLException e) {
                 String msgErro = e.getMessage();
                 System.out.println(msgErro);
                 // Função para apresentar erro na View:
-                new TelaCadastrarCliente().apresentarMsg(msgErro);
+                viewCadCliente.apresentarMsg(msgErro);
         }
         return clientes;
     }
@@ -110,12 +113,12 @@ public class ClienteControl {
     public ArrayList<Cliente> listarClientesComFiltro(String nome, String sobrenome, String telefone) {
         ArrayList<Cliente> clientes = null;
         try {
-            clientes = new Cliente().listarClientesComFiltro(nome, sobrenome, telefone);
+            clientes = clienteModel.listarClientesComFiltro(nome, sobrenome, telefone);
         } catch (SQLException e) {
             String msgErro = e.getMessage();
             System.out.println(msgErro);
             // Função para apresentar erro na View:
-            new TelaCadastrarCliente().apresentarMsg(msgErro);
+            viewCadCliente.apresentarMsg(msgErro);
         }
         return clientes;
     }
